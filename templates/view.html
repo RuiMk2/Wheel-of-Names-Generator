@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}
+    View Table 
+{% endblock %}
+
+{% block main %}
+<h1>View Test</h1>
+<h4>Table: {{TableInfo[0]["TableName"]}}</h4>
+<h4>ID:{{TableInfo[0]["TableID"]}}</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Entries</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in data %}
+        <tr>
+            <td>{{data["Name"]}}</td>
+            <td>{{data["Entries"]}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Change Username
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center">Change Username</h1>
+    <form action="/changeusername" method="post">
+        <div class="mb-3">
+            <input autofocus class="form-control mx-auto w-auto" id="new" name="new" placeholder="New Username" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Change Password</button>
+    </form>
+    <p>Note: If you succesfully changed username your old username will be available for other users</p>
+    {{status}}
+{% endblock %}

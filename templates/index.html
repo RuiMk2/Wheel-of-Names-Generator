@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}
+    Main Menu 
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center">Select table</h1>
+    <form action="/edit" method="get">
+        <select name="table">
+            <option disabled selected value="0">Select Table</option>
+            {%for choice in choices%}
+                <option value="{{choice["TableID"]}}">{{choice["TableName"]}}</option>
+            {%endfor%}
+        </select>
+        <button class="btn btn-primary" type="submit">Select</button>
+    </form>
+    <form action="/create" method="post">
+        <p>Create a table</p>
+        <div>
+            <input autocomplete="off" id="TableName" name="TableName" placeholder="Name of Table" type="text">
+            <button class="btn btn-primary" type="submit">Create Table</button>
+        </div>
+    </form>
+
+        LOGIN SUCCESS
+
+    <a class="nav-link" href="/logout">Log Out</a>
+{% endblock %}

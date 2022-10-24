@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}
+    Log in 
+{% endblock %}
+
+{% block main %}
+    <form action="/login" method="post">
+        <div>
+            <input id="usermame" name="username" placeholder="Username" type="text">
+        </div>
+        <div>
+            <input id="password" name="password" placeholder="Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+        <p> Dont have an account yet? <a href="register">Register now!</a></p>
+    </form>
+    <p>{{status}}</p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}
+    Delete Table?
+{% endblock %}
+
+{% block main %}
+    <h1>Delete table {{Table[0]["TableName"]}} ?</h1>
+    <h2>This action CANNOT be undone</h2>
+
+<form action="" method="post">
+    <button class="btn btn-primary" type="submit" name="choice" value="Yes">Yes</button>
+    <button class="btn btn-primary" type="submit" name="choice" value="No"> No</button>
+</form>
+{% endblock %}
