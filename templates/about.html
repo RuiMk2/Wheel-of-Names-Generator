@@ -1,11 +1,44 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    About Me
+    About
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center">Nyaaaaaaaaan</h1>
-    <p> ehe </p>
-    {{status}}
+    <div class="text-center">
+        <h1>Wheel of Names Generator</h1>
+        <h3>Made by: RuiMk2</h3>
+    </div>
+    <h3>About the project</h3>
+    <ul>
+        <li>This project aims to help make it easier to keep track of entries and use them for the <a href="https://wheelofnames.com/">Wheel of Names website</a>(Not Affiliated).</li>
+        <li>This was also done as part of my Final Project for CS50.</li>
+    </ul>
+
+    <h3>Changelogs</h3>
+    <h4>Ver 1.0 (October/27/2022)</h4>
+    <ul>
+        <li>Completed the main functionality and basic designing of the website.</li>
+        <li>Added "About" page to show details about the website and a place to log the changes.</li>
+    </ul>
+    <h3>Questions? Suggestions? You can contact me at:</h3>
+    <div class="socials float-md-start">
+        <ul class="nav justify-content-between">
+            <li><a href="https://www.facebook.com/Rui.mk02">
+                    <figure>
+                        <img src="static/fb_icon.png">
+                        <figcaption>@Rui.Mk02</figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li><a href="https://twitter.com/LilJellyone">
+                    <figure>
+                        <img src="static/Twitter.png">
+                        <figcaption>@LilJellyOne</figcaption>
+                    </figure>
+                </a>
+            </li>
+        </ul>
+    </div>
+
 {% endblock %}
