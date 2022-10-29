@@ -4,4 +4,39 @@
 .icon{
     height: 50px;
     width: 50px;
+    float: left;
 }
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td, th{
+    text-align: center;
+}
+
+.title{  
+    display: flex;
+    align-items: center
+}
+
+h2 {
+    text-align: center;
+}
+.navbar {
+    /*This is to remove the white spaces on the sides of the navbar*/
+    margin-top: -5px;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.centerbulleted{
+    /*alllows unsorted list to be at the center of the page without looking weird*/
+    display: table;
+    margin: 0 auto;
+  }
+
+.socials img{
+    height: 100px;
+    width: 100px;
+  }

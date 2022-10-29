@@ -6,17 +6,17 @@
 
 {% block main %}
     <h1 class="text-center">Change Password</h1>
-    <form action="/changepass" method="post">
-        <div class="mb-3">
+    <form action="/changepass" method="post" class="text-center">
+        <div class="mb-2">
             <input autofocus class="form-control mx-auto w-auto" id="old" name="old" placeholder="Old Password" type="password">
         </div>
-        <div class="mb-3">
+        <div class="mb-2">
             <input class="form-control mx-auto w-auto" id="new" name="new" placeholder="New Password" type="password">
         </div>
-        <div class="mb-3">
+        <div class="mb-2">
             <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Re-type Password" type="password">
         </div>
         <button class="btn btn-primary" type="submit">Change Password</button>
+        <p class="error">{{status}}</p>
     </form>
-    {{status}}
 {% endblock %}

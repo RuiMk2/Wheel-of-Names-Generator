@@ -4,15 +4,16 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/login" method="post">
-        <div>
-            <input id="usermame" name="username" placeholder="Username" type="text">
+    <h2>Log In</h2>
+    <form action="/login" method="post" class="text-center">
+        <div class="mb-2">
+            <input class="form-control mx-auto w-auto" autocomplete="off" autofocus id="usermame" name="username" placeholder="Username" type="text">
         </div>
         <div>
-            <input id="password" name="password" placeholder="Password" type="password">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
         </div>
         <button class="btn btn-primary" type="submit">Log In</button>
         <p> Dont have an account yet? <a href="register">Register now!</a></p>
+        <p class="error">{{status}}</p>
     </form>
-    <p>{{status}}</p>
 {% endblock %}

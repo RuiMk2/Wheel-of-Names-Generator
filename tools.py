@@ -4,7 +4,7 @@ from functools import wraps
 
 #extract the sql query to a dictionary
 def extract(query):
-    dict_list=[]
+    dict_list = []
     try:
         for data in query:
             dict_list.append(dict(data))
@@ -16,14 +16,14 @@ def extract(query):
 def checker(TableID, UserID):
     db = sqlite3.connect("database.db")
     db.row_factory = sqlite3.Row
-    checker=[]
+    checker = []
     if UserID == None:
-        checker=extract(db.execute("SELECT * FROM tables WHERE TableID = ? AND IsPublic = 1",(TableID,)).fetchall())
+        checker = extract(db.execute("SELECT * FROM tables WHERE TableID = ? AND IsPublic = 1",(TableID,)).fetchall())
     else:
-        checker=extract(db.execute("SELECT * FROM tables WHERE TableID = ? AND OwnerID = ?",(TableID,UserID)).fetchall())
+        checker = extract(db.execute("SELECT * FROM tables WHERE TableID = ? AND OwnerID = ?",(TableID,UserID)).fetchall())
     return checker
 
-# check if the password is valid
+# Check if the password is valid
 def pass_validate(password,confirmation):
     if not password == confirmation:
             return "Passwords do not match"

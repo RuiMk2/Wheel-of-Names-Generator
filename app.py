@@ -8,13 +8,13 @@ from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
-app.config["TEMPLATES_AUTO_RELOAD"]= True
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"]="filesystem"
+app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Open the database
-db = sqlite3.connect("database.db", check_same_thread=False)
+db = sqlite3.connect("database.db", check_same_thread = False)
 # To allow the database to return data as list dictionaries
 db.row_factory = sqlite3.Row
 
@@ -22,24 +22,20 @@ db.row_factory = sqlite3.Row
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    tablesOwned= extract(db.execute("SELECT * FROM tables WHERE OwnerID=? ORDER BY TableID DESC", (session["user_id"],)).fetchall())
-    return render_template("index.html", user = session , choices=tablesOwned)
+    tablesOwned = extract(db.execute("SELECT * FROM tables WHERE OwnerID = ? ORDER BY TableID DESC", (session["user_id"],)).fetchall())
+    return render_template("index.html", user=session , choices=tablesOwned)
 
-# About creator easter egg
-@app.route("/about")
-def about():
-    return render_template("about.html")
 
 ## Account Management ##
 # Register new account
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method =="POST":
+    if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         confirmation = request.form.get("repassword")
         # query to check if username exists
-        query=extract(db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchall())
+        query = extract(db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchall())
         # check if username is valid 
         if not username or not password or not confirmation:
             error = "Some fields are blank"
@@ -76,7 +72,7 @@ def login():
             session["user_id"] = query[0]["id"]
             session["username"] = query[0]["username"]
             return redirect("/")
-        return render_template("login.html", status = error)
+        return render_template("login.html", status=error)
     return render_template("login.html")
 
 # Logout
@@ -90,10 +86,10 @@ def logout():
 @login_required
 def changepass():
     if request.method == "POST":
-        oldpass=request.form.get("old")
-        newpass=request.form.get("new")
+        oldpass = request.form.get("old")
+        newpass = request.form.get("new")
         query = extract(db.execute("SELECT * FROM users where id = ?", (session["user_id"],)).fetchall())
-        confirmation=request.form.get("confirmation")
+        confirmation = request.form.get("confirmation")
         if not oldpass or not newpass or not confirmation:
             status = "Some fields are blank"
         # Incase user is a deleted user
@@ -117,17 +113,17 @@ def changepass():
 def changeusername():
     if request.method == "POST":
         new = request.form.get("new")
-        query=extract(db.execute("SELECT * FROM users WHERE username = ?", (new,)).fetchall())
+        query = extract(db.execute("SELECT * FROM users WHERE username = ?", (new,)).fetchall())
         # check if username is valid 
         if not new:
-            status = "Username cannot beg blank"
+            status = "Username cannot be blank"
         elif not len(query) == 0:
             status = "Username already exists"
         else:
             db.execute("UPDATE users SET username=? WHERE id=?", (new,session["user_id"]))
             db.commit()
             session["username"] = new
-            status= "Username changed succesfully"
+            status = "Username changed succesfully"
         return render_template("changeusername.html", status=status)
     return render_template("changeusername.html")
 
@@ -139,7 +135,7 @@ def create():
     # Create a table
     name = request.form.get("TableName")
     if not name:
-        name="default"
+        name = "default"
     db.execute("INSERT INTO tables(TableName,OwnerID) VALUES(?,?)", (name,session["user_id"]))
     db.commit()
     return redirect("/")
@@ -169,6 +165,28 @@ def DeleteTable():
             return redirect("/")
     return render_template("delete table.html", Table=check)
 
+# Copy a table
+@app.route("/CopyTable")
+@login_required
+def CopyTable():
+    TableID = request.args.get("table")
+    # Check if the user owns the table
+    check = checker(TableID,session["user_id"])
+    if len(check) == 0:
+        return render_template("not found.html")
+    # Create new table
+    db.execute("INSERT INTO tables(OwnerID, TableName) VALUES(?,?)",(session["user_id"],check[0]["TableName"]))
+    db.commit()
+    # Get the latest table the user created
+    NewTable = extract(db.execute("SELECT * FROM tables WHERE OwnerID=? ORDER BY TableID DESC", (session["user_id"],)).fetchall())
+    # Get the data from old table
+    datas = extract(db.execute("SELECT * FROM data WHERE TableID=? AND OwnerID=?",(TableID,session["user_id"])).fetchall())
+    for i in range(len(datas)):
+        db.execute("INSERT INTO data(TableID,OwnerID,Name,Entries) VALUES(?,?,?,?)",(NewTable[0]["TableID"],session["user_id"],datas[i]["Name"],datas[i]["Entries"]))
+    db.commit()
+    return redirect("/")
+
+
 # View a table
 @app.route("/view")
 def view():
@@ -177,18 +195,18 @@ def view():
     # Check if the table is available
     try: 
         # If there is a logged in account
-        check=checker(TableID,session["user_id"])
+        check = checker(TableID,session["user_id"])
         # If there is a looged in acount but is not owned by the user
         if len(check) == 0:
             check = checker(TableID,None)
     except:
         # If there is no logged in account
-        check=checker(TableID,None)
+        check = checker(TableID,None)
     # if there was no table found that matches
     if not len(check) == 1:
         return render_template("not found.html")
     # Render the data
-    data=extract(db.execute("SELECT * FROM data WHERE TableID=? ",(TableID, )).fetchall())
+    data=extract(db.execute("SELECT * FROM data WHERE TableID=?",(TableID, )).fetchall())
     return render_template("view.html", data = data, TableInfo = check)
 
 # Edit a table
@@ -216,14 +234,14 @@ def edit():
                 name=request.form.get("AddName")
                 # Add a default name incase user does not input any Names
                 if not name:
-                    name="Default"
+                    name = "Default"
                 # Precaution incase the user inputs something that is not a number or negative values
                 try:
                     entries=int(request.form.get("AddEntries"))
                     if entries < 0:
-                        entries=0
+                        entries = 0
                 except:
-                    entries=0
+                    entries = 0
                 # Insert the person to the database
                 db.execute("INSERT INTO data(TableID, OwnerID, Name, Entries) VALUES(?,?,?,?)",(TableID, session["user_id"], name, entries))
                 db.commit()
@@ -289,5 +307,15 @@ def edit():
     # Render the table
     return render_template("edit.html", data = data,TableInfo = check)
 
+## Misc ##
+# Custom Not Found message
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('not found.html')
 
+# About 
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
