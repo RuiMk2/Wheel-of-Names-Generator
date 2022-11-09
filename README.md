@@ -39,7 +39,7 @@
 ### requirements.txt
 #### -Contains information on what are required to make the app run
 ### Sources for some codes that helped make the app possible:
-#### [Get the information in sqlite as a dict](https://stackoverflow.com/questions/3300464/how-can-i-get-dict-from-sqlite-query\)
+#### [Get the information in sqlite as a dict](https://stackoverflow.com/questions/3300464/how-can-i-get-dict-from-sqlite-query)
 #### [Multiple submit options for post requests](https://stackoverflow.com/questions/43811779/use-many-submit-buttons-in-the-same-form)
 #### [Jinja White space control](https://ttl255.com/jinja2-tutorial-part-3-whitespace-control/#:~:text=Jinja2%20allows%20us%20to%20manually,or%20after%20the%20block%2C%20respectively.)
 #### [Copy text area to clipboard](https://stackoverflow.com/questions/37658524/copying-text-of-textarea-in-clipboard-when-button-is-clicked)
