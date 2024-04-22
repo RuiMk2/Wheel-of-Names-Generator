@@ -5,12 +5,25 @@ Raffle Keeper
 
 {% block main %}
 <div class="mx-auto landing" style="width: 100%">
-    <div>
-        <img src="static/quote.svg" class="float-md-start quotesvg">
+    <div class="float-md-start">
+        <div class="text-center quote">
+            _______________________________________________
+            <br>
+            <div class="quote-text">
+                "Bringing fairness and transparency to the tip of you fingers,
+                <br>
+                one raffle at a time"
+                <br>
+            </div>
+            _______________________________________________
+        </div>
+
     </div>
-    <img src="static/rafflekeeperlogo.svg" class="float-md-end img-fluid logosvg">
+    <img src="static/rafflekeeperlogo.svg" class="float-md-end logosvg">
 </div>
-<a href="/about"><button class="btn btn-primary landbutton">More info</button>
-</a>
+<div class="landbutton">
+    <a href="/register"><button type="button" class="btn btn-primary">Sign Up</button></a>
+    <a href="/login"><button type="button" class="btn btn-primary">Log In</button></a>
+</div>
 
 {% endblock %}

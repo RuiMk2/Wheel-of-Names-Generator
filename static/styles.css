@@ -49,13 +49,18 @@ h2 {
     margin-top: 2.5%;
 }
 
-.quotesvg {
-    margin-top: 30px;
-    width: 65%;
+.quote {
+    margin-top: 15vh;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.5vw;
+}
+
+.quote-text {
+    font-size: 2.5vw;
 }
 
 .logosvg {
-    width: 35%
+    width: 35%;
 }
 
 .landbutton {

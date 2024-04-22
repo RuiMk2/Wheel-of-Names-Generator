@@ -164,7 +164,7 @@ def create():
     db.execute("INSERT INTO tables(TableName,OwnerID) VALUES(?,?)",
                (name, session["user_id"]))
     db.commit()
-    return redirect("/")
+    return redirect("/home")
 
 # Delete a table
 
@@ -188,11 +188,11 @@ def DeleteTable():
             db.execute("DELETE FROM data WHERE OwnerID=? AND TableID=?",
                        (session["user_id"], TableID))
             db.commit()
-            return redirect("/")
+            return redirect("/home")
         elif request.form["choice"] == "No":
-            return redirect("/")
+            return redirect("/home")
         else:
-            return redirect("/")
+            return redirect("/home")
     return render_template("delete table.html", Table=check)
 
 # Copy a table
@@ -220,7 +220,7 @@ def CopyTable():
         db.execute("INSERT INTO data(TableID,OwnerID,Name,Entries) VALUES(?,?,?,?)",
                    (NewTable[0]["TableID"], session["user_id"], datas[i]["Name"], datas[i]["Entries"]))
     db.commit()
-    return redirect("/")
+    return redirect("/home")
 
 
 # View a table
