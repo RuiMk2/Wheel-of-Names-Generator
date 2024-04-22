@@ -1,21 +1,24 @@
-.error{
-    color: #ff0000;  
+.error {
+    color: #ff0000;
 }
-.icon{
+
+.icon {
     height: 50px;
     width: 50px;
     float: left;
 }
-table{
+
+table {
     margin-left: auto;
     margin-right: auto;
 }
 
-td, th{
+td,
+th {
     text-align: center;
 }
 
-.title{  
+.title {
     display: flex;
     align-items: center
 }
@@ -23,6 +26,7 @@ td, th{
 h2 {
     text-align: center;
 }
+
 .navbar {
     /*This is to remove the white spaces on the sides of the navbar*/
     margin-top: -5px;
@@ -30,13 +34,30 @@ h2 {
     margin-right: -5px;
 }
 
-.centerbulleted{
+.centerbulleted {
     /*alllows unsorted list to be at the center of the page without looking weird*/
     display: table;
     margin: 0 auto;
-  }
+}
 
-.socials img{
+.socials img {
     height: 100px;
     width: 100px;
-  }
+}
+
+.landing {
+    margin-top: 2.5%;
+}
+
+.quotesvg {
+    margin-top: 30px;
+    width: 65%;
+}
+
+.logosvg {
+    width: 35%
+}
+
+.landbutton {
+    margin-left: 25%;
+}
