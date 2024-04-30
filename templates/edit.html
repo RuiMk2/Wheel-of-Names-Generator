@@ -1,80 +1,92 @@
 {% extends "layout.html" %}
 {% block title %}
-    Edit Table 
+Edit Table
 {% endblock %}
 
 {% block main %}
-    <!--Show Table Information-->
-    <h2>Edit {{TableInfo[0]["TableName"]}}</h2>
+<!--Show Table Information-->
+<h2>Edit {{TableInfo[0]["TableName"]}}</h2>
 
-    <div class="container-fluid text-center">
-        <div class="float-start">
-            <form action="" method="post">
-                <input autocomplete="off" class="form-control" id="TableName" name="TableName" placeholder="TableName" value="{{TableInfo[0]["TableName"]}}" type="text">
-                <button class="btn btn-primary" type="submit" name="action" value="RenameTable">Rename Table</button>
-            </form>
-            <h4>Table ID: {{TableInfo[0]["TableID"]}}</h4>
-        </div>
-        <div class="float-end">
-            <!--Generate the data to be copyable to wheel of names-->
-            <!-- Minus symbol used to remove white spaces-->
-            <script src="/static/copy.js"></script>
-            <textarea class="form-control" id="generate">{%for generate in data-%}{%for i in range(generate["Entries"])-%}{{generate["Name"]}}&#13;&#10;{%endfor-%}{%endfor-%}</textarea><br>
-            <button class="btn btn-primary" onClick="Copy()">Copy</button><br>
-            <a href="https://wheelofnames.com/">Go to Wheel of Names</a>
-        </div>
-    </div>
-
-    <!--Display Table Contents-->
-    <table class="table">
+<div class="container-fluid text-center">
+    <div class="float-start">
         <form action="" method="post">
-            <thead>
-                <tr>
-                    <th><button class="btn btn-primary" type="submit" name="action" value="UpdateTable">Update Table</button></th>
-                    <th>Name</th>
-                    <th>Entries</th>
-                    <th><button class="btn btn-primary" type="submit" name="action" value="DeleteSelected">Delete Selected</button></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--Show Entries info and option to delete-->
-                <!--DeleteID to allow selectable deletion While allowing update to update the whole table-->
-                {% for data in data %}
-                <tr>
-                    <input type="hidden" value="{{data["NameID"]}}" name="ID">
-                    <td>-</td>
-                    <td><input autocomplete="off" class="form-control" type="text" value="{{data["Name"]}}" name="Name"></td>
-                    <td><input autocomplete="off" class="form-control" type="Number" value="{{data["Entries"]}}" name="Entries"></td>
-                    <td><input type="checkbox" name="DeleteID" value="{{data["NameID"]}}"></td>
-                </tr>
-                {% endfor %}
+            <input autocomplete="off" class="form-control" id="TableName" name="TableName" placeholder="TableName"
+                value="{{TableInfo[0]['TableName']}}" type="text">
+            <button class="btn btn-primary" type="submit" name="action" value="RenameTable">Rename Table</button>
         </form>
-                <tr>
-                    <!--Add a Person to the Entry list-->
-                    <form action="" method="post">
-                        <td>-</td>
-                        <td><input autofocus autocomplete="off" class="form-control" id="AddName" name="AddName" placeholder="Name" type="text"></td>
-                        <td><input autocomplete="off" class="form-control" id="AddEntries" name="AddEntries" placeholder="Entries" type="Number"></td>
-                        <td><button class="btn btn-primary" type="submit" name="action" value="AddPerson">Add</button></td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-
-
-    <div class="text-center">
-        <!--Option to change the table into Public Table and Vice versa-->
-        <form action="" method="post">
-            {% if (TableInfo[0]["IsPublic"] == 1) %}
-                <p>This table is in Public</p>
-                <button class="btn btn-primary" type="submit" name="action" value="ChangePublicity">Change to Private</button>
-                <p>share the table at</p>
-                <!--to be replaced with domain name in the future-->
-                <input type="text" value="http://127.0.0.1:5000/view?table={{TableInfo[0]["TableID"]}}">
-            {% else %}
-                <p>This table is Private</p>
-                <button class="btn btn-primary" type="submit" name="action" value="ChangePublicity">Change to Public</button>
-            {% endif %}
-        </form>
+        <h4>Table ID: {{TableInfo[0]["TableID"]}}</h4>
     </div>
+    <div class="float-end">
+        <!--Generate the data to be copyable to wheel of names-->
+        <!-- Minus symbol used to remove white spaces-->
+        <script src="/static/copy.js"></script>
+        <textarea class="form-control"
+            id="generate">{%for generate in data-%}{%for i in range(generate["Entries"])-%}{{generate["Name"]}}&#13;&#10;{%endfor-%}{%endfor-%}</textarea><br>
+        <button class="btn btn-primary" onClick="Copy()">Copy</button><br>
+        <a href="https://wheelofnames.com/">Go to Wheel of Names</a>
+    </div>
+</div>
+
+<!--Display Table Contents-->
+<table class="table">
+    <form action="" method="post">
+        <thead>
+            <tr>
+                <th><button class="btn btn-primary" type="submit" name="action" value="UpdateTable">Update
+                        Table</button></th>
+                <th>Name</th>
+                <th>Entries</th>
+                <th><button class="btn btn-primary" type="submit" name="action" value="DeleteSelected">Delete
+                        Selected</button></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Show Entries info and option to delete-->
+            <!--DeleteID to allow selectable deletion While allowing update to update the whole table-->
+            {% for data in data %}
+            <tr>
+                <input type="hidden" value="{{data['NameID']}}" name="ID">
+                <td>-</td>
+                <td><input autocomplete="off" class="form-control" type="text" value="{{data['Name']}}" name="Name">
+                </td>
+                <td><input autocomplete="off" class="form-control" type="Number" value="{{data['Entries']}}"
+                        name="Entries"></td>
+                <td><input type="checkbox" name="DeleteID" value="{{data['NameID']}}"></td>
+            </tr>
+            {% endfor %}
+    </form>
+    <tr>
+        <!--Add a Person to the Entry list-->
+        <form action="" method="post">
+            <td>-</td>
+            <td><input autofocus autocomplete="off" class="form-control" id="AddName" name="AddName" placeholder="Name"
+                    type="text"></td>
+            <td><input autocomplete="off" class="form-control" id="AddEntries" name="AddEntries" placeholder="Entries"
+                    type="Number"></td>
+            <td><button class="btn btn-primary" type="submit" name="action" value="AddPerson">Add</button></td>
+        </form>
+    </tr>
+    </tbody>
+</table>
+
+
+<div class="text-center">
+    <!--Option to change the table into Public Table and Vice versa-->
+    <form action="" method="post">
+        {% if (TableInfo[0]["IsPublic"] == 1) %}
+        <p>This table is in Public</p>
+        <button class="btn btn-primary" type="submit" name="action" value="ChangePublicity">Change to Private</button>
+        <p>share the table at</p>
+        <!--to be replaced with domain name in the future-->
+        <input type="text" value="http://127.0.0.1:5000/view?table={{TableInfo[0]['TableID']}}">
+        {% else %}
+        <p>This table is Private</p>
+        <button class="btn btn-primary" type="submit" name="action" value="ChangePublicity">Change to Public</button>
+        {% endif %}
+    </form>
+</div>
+<div class="text-center winner">
+    <h4 id="winner">-</h4>
+    <button class="btn btn-primary" onclick="drawWinner()">Draw Winner</button>
+</div>
 {% endblock %}
