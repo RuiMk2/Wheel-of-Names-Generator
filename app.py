@@ -70,7 +70,6 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        print(password)
         # query to compare credentials with
         query = extract(db.execute(
             "SELECT * FROM users where username = ?", (username,)).fetchall())
